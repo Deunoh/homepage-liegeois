@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head><meta charset="UTF-8" /><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();</script>
+			
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="profile" href="https://gmpg.org/xfn/11" />
+		<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v19.7.1 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Comment utiliser DeepL gratuitement ? | optima-translation.com</title><style id="rocket-critical-css">ul{box-sizing:border-box}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}@font-face{font-display:swap;font-family:ez-toc-icomoon;src:url(https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/vendor/icomoon/fonts/ez-toc-icomoon.eot);src:url(https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/vendor/icomoon/fonts/ez-toc-icomoon.eot?#iefix) format('embedded-opentype'),url(https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/vendor/icomoon/fonts/ez-toc-icomoon.woff2) format('woff2'),url(https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/vendor/icomoon/fonts/ez-toc-icomoon.woff) format('woff'),url(https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/vendor/icomoon/fonts/ez-toc-icomoon.ttf) format('truetype'),url(https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/vendor/icomoon/fonts/ez-toc-icomoon.svg#ez-toc-icomoon) format('svg');font-weight:400;font-style:normal}#ez-toc-container{background:#f9f9f9;border:1px solid #aaa;border-radius:4px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);box-shadow:0 1px 1px rgba(0,0,0,.05);display:table;margin-bottom:1em;padding:10px;position:relative;width:auto}#ez-toc-container li,#ez-toc-container ul{padding:0}#ez-toc-container li,#ez-toc-container ul,#ez-toc-container ul li{background:0 0;list-style:none;line-height:1.6;margin:0;overflow:hidden;z-index:1}.ez-toc-title-container{display:table;width:100%}.ez-toc-title-toggle{display:inline;text-align:left;vertical-align:middle}#ez-toc-container a{color:#444;box-shadow:none;text-decoration:none;text-shadow:none}#ez-toc-container a:visited{color:#9f9f9f}.ez-toc-btn{display:inline-block;padding:6px 12px;margin-bottom:0;font-size:14px;font-weight:400;line-height:1.428571429;text-align:center;white-space:nowrap;vertical-align:middle;background-image:none;border:1px solid transparent;border-radius:4px}.ez-toc-btn-default{color:#333;background-color:#fff;-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);text-shadow:0 1px 0 #fff;background-image:-webkit-gradient(linear,left 0,left 100%,from(#fff),to(#e0e0e0));background-image:-webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);background-image:-moz-linear-gradient(top,#fff 0,#e0e0e0 100%);background-image:linear-gradient(to bottom,#fff 0,#e0e0e0 100%);background-repeat:repeat-x;border-color:#ccc}.ez-toc-btn-xs{padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px}.ez-toc-glyphicon,[class*=ez-toc-icon-]{font-style:normal;font-weight:400;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.ez-toc-btn-xs{padding:1px 5px}.ez-toc-pull-right{float:right!important;margin-left:10px}.ez-toc-glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings'}.ez-toc-glyphicon:empty{width:1em}.ez-toc-toggle i.ez-toc-glyphicon{font-size:16px;margin-left:2px}[class*=ez-toc-icon-]{font-family:ez-toc-icomoon!important;speak:none;font-variant:normal;text-transform:none}.ez-toc-icon-toggle:before{content:"\e87a"}div#ez-toc-container{padding-right:20px}#ez-toc-container a.ez-toc-toggle{color:#444;background:inherit;border:inherit}@font-face{font-family:'Open Sans';font-style:normal;font-weight:700;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-Bold.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:italic;font-weight:700;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-BoldItalic.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:normal;font-weight:800;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-ExtraBold.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:italic;font-weight:800;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-ExtraBoldItalic.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:italic;font-weight:400;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-Italic.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-Light.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:italic;font-weight:300;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-LightItalic.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:normal;font-weight:500;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-Medium.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:italic;font-weight:500;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-MediumItalic.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-Regular.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:normal;font-weight:600;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-SemiBold.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:italic;font-weight:600;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-SemiBoldItalic.woff) format("woff")}@font-face{font-family:'Open Sans';font-style:normal;font-weight:400;font-stretch:normal;font-display:swap;src:url(https://www.optima-translation.com/wp-content/themes/colormag/fonts/OpenSans-VariableFont.woff) format("woff")}html,body,div,span,h1,h3,p,a,strong,ul,li{border:0;font:inherit;font-size:100%;font-style:inherit;font-weight:inherit;margin:0;outline:0;padding:0;vertical-align:baseline}html{overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}*{-webkit-box-sizing:border-box;box-sizing:border-box}article,aside,header,nav{display:block}ul{list-style:none}body{color:#444444;font:16px 'Open Sans',serif;line-height:1.6;word-wrap:break-word}body{background-color:#eaeaea}h1,h3{padding-bottom:18px;color:#333333;font-weight:normal;font-family:'Open Sans',sans-serif}h1{font-size:42px;line-height:1.2}h3{font-size:34px;line-height:1.2}p{line-height:1.6;margin-bottom:15px;font-family:'Open Sans',serif}strong{font-weight:bold}i{font-style:italic}ul{list-style:none}a{color:#289dcc;text-decoration:none}img{max-width:100%;height:auto;vertical-align:top;margin-bottom:18px}.clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0}.clearfix{display:inline-block}.clearfix{display:block}body{padding-top:10px;padding-bottom:10px;background-size:cover}#page{max-width:1200px;margin:0 auto}.wide{padding-top:0;padding-bottom:0}.wide #page{max-width:100%}.inner-wrap{margin:0 auto;max-width:1140px}#header-text-nav-container{background-color:#ffffff}#header-text-nav-wrap{padding:20px 0 25px}#header-left-section{float:left}#header-text{float:left;padding-right:20px}#site-title{padding-bottom:0;line-height:1.2}#site-title a{color:#289dcc;font-size:46px}#header-right-section{float:right}#header-right-section .widget{text-align:right;color:#333333}#header-right-section .widget .widget-title{padding-bottom:0;font-size:18px;line-height:1.2;padding-bottom:5px}.fa{font-size:22px;color:#cccccc}#site-navigation{-webkit-box-shadow:0 0 2px rgba(0,0,0,0.1) inset;box-shadow:0 0 2px rgba(0,0,0,0.1) inset;position:relative;background-color:#232323;border-top:4px solid #289dcc}#site-navigation .inner-wrap{position:relative}.main-navigation{width:100%;text-align:center}.main-navigation li{float:left;position:relative;font-family:'Open Sans',serif;font-weight:300}.main-navigation a{color:#ffffff;display:block;float:none;font-size:14px;font-weight:600;padding:10px 12px;text-transform:uppercase}.menu-toggle{display:none}.site-header .menu-toggle{color:#ffffff;margin:0;text-align:center;font-family:'Open Sans',serif;padding-bottom:0;line-height:1.2}.site-header .menu-toggle:before{content:"\f0c9";font-family:FontAwesome;font-style:normal;font-weight:normal;text-decoration:inherit;font-size:23px;color:#ffffff;padding:8px 12px;display:block}#main{padding-top:30px;padding-bottom:20px;background-color:#ffffff}.screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute!important;width:1px;word-wrap:normal!important}a#scroll-up{bottom:20px;position:fixed;right:20px;display:none;opacity:0.5;filter:alpha(opacity=50)}a#scroll-up i{font-size:40px;color:#289dcc}#primary{float:left;width:70.17543859%}#secondary{float:right;width:27.19298245%}.single #content .post,#content .post{-webkit-box-shadow:0 1px 3px 0 rgba(0,0,0,0.1);box-shadow:0 1px 3px 0 rgba(0,0,0,0.1)}#content .post{margin-bottom:30px}.single #content .post{margin-bottom:0}#content .post img{margin-bottom:0}#content .post .article-content{padding:15px}#content .post .article-content .above-entry-meta .cat-links a{background-color:#289dcc;border-radius:3px;color:#ffffff;font-size:12px;padding:3px 10px}#content .post .article-content .entry-title{padding:5px 0 0;font-size:32px}#content .post .article-content .below-entry-meta .posted-on,#content .post .article-content .below-entry-meta .byline{padding-right:10px}#content .post .article-content .below-entry-meta .posted-on .fa{color:#888888;font-size:10px;padding-right:3px}#content .post .article-content .below-entry-meta .byline .fa{color:#888888;padding-right:5px;font-size:11px}#content .post .article-content .below-entry-meta .posted-on a,#content .post .article-content .below-entry-meta .byline a{font-size:12px}#content .post .article-content .below-entry-meta{padding-bottom:20px}.type-post .entry-title{font-size:34px;line-height:1.2}.post .entry-content{margin-bottom:10px}.entry-content ul{list-style:square}.entry-content ul{padding:0 0 0 35px;margin-bottom:30px}.entry-content li{line-height:1.3}.posted-on a,.byline a{color:#888888}.post .featured-image{text-align:center}#site-navigation{z-index:999}@media screen and (max-width:1190px){#page{width:97%}.wide #page{width:100%}.inner-wrap{width:94%}}@media screen and (max-width:768px){#header-text-nav-wrap{padding:10px 0}#header-left-section{float:none;margin-bottom:10px}#header-text{float:none;text-align:center;padding-right:0}#header-right-section{float:none}#header-right-section .widget{text-align:center}.menu-toggle{display:block;float:left}.main-navigation ul{display:none}#primary,#secondary{float:none;width:100%}}</style><link rel="preload" href="https://www.optima-translation.com/wp-content/cache/min/1/96918b664ba0dea58b85cdc2900425ad.css" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" media="all" data-minify="1" />
+	<meta name="description" content="La version gratuite est idéale pour transcrire, par exemple, un article ou une lettre dans la langue de votre choix. Dans tous les cas, le résultat sera" />
+	<link rel="canonical" href="https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514" />
+	<meta property="og:locale" content="fr_FR" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Comment utiliser DeepL gratuitement ? | optima-translation.com" />
+	<meta property="og:description" content="La version gratuite est idéale pour transcrire, par exemple, un article ou une lettre dans la langue de votre choix. Dans tous les cas, le résultat sera" />
+	<meta property="og:url" content="https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514" />
+	<meta property="og:site_name" content="optima-translation.com" />
+	<meta property="article:published_time" content="2022-06-03T03:15:38+00:00" />
+	<meta property="og:image" content="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-modifier-un-document-traduit-par-DeepL-.png" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Durée de lecture estimée" />
+	<meta name="twitter:data1" content="5 minutes" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514","url":"https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514","name":"Comment utiliser DeepL gratuitement ? | optima-translation.com","isPartOf":{"@id":"https://www.optima-translation.com/#website"},"primaryImageOfPage":{"@id":"https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514#primaryimage"},"image":{"@id":"https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514#primaryimage"},"thumbnailUrl":"https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-utiliser-DeepL-gratuitement-.jpeg","datePublished":"2022-06-03T03:15:38+00:00","dateModified":"2022-06-03T03:15:38+00:00","author":{"@id":""},"description":"La version gratuite est idéale pour transcrire, par exemple, un article ou une lettre dans la langue de votre choix. Dans tous les cas, le résultat sera","breadcrumb":{"@id":"https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514#breadcrumb"},"inLanguage":"fr-FR","potentialAction":[{"@type":"ReadAction","target":["https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514"]}]},{"@type":"ImageObject","inLanguage":"fr-FR","@id":"https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514#primaryimage","url":"https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-utiliser-DeepL-gratuitement-.jpeg","contentUrl":"https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-utiliser-DeepL-gratuitement-.jpeg","width":688,"height":387,"caption":"Comment utiliser DeepL gratuitement ?"},{"@type":"BreadcrumbList","@id":"https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Comment utiliser DeepL gratuitement ?"}]},{"@type":"WebSite","@id":"https://www.optima-translation.com/#website","url":"https://www.optima-translation.com/","name":"optima-translation.com","description":"","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.optima-translation.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"fr-FR"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","legalName":"optima-translation.com","url":"https://www.optima-translation.com/"}</script>
+
+
+<style id='wp-block-library-theme-inline-css' type='text/css'>
+.wp-block-audio figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio figcaption{color:hsla(0,0%,100%,.65)}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed figcaption{color:hsla(0,0%,100%,.65)}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:hsla(0,0%,100%,.65)}.wp-block-image figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-image figcaption{color:hsla(0,0%,100%,.65)}.wp-block-pullquote{border-top:4px solid;border-bottom:4px solid;margin-bottom:1.75em;color:currentColor}.wp-block-pullquote__citation,.wp-block-pullquote cite,.wp-block-pullquote footer{color:currentColor;text-transform:uppercase;font-size:.8125em;font-style:normal}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;position:relative;font-style:normal}.wp-block-quote.has-text-align-right{border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote.has-text-align-center{border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote.is-style-plain{border:none}.wp-block-search .wp-block-search__label{font-weight:700}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table thead{border-bottom:3px solid}.wp-block-table tfoot{border-top:3px solid}.wp-block-table td,.wp-block-table th{padding:.5em;border:1px solid;word-break:normal}.wp-block-table figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table figcaption{color:hsla(0,0%,100%,.65)}.wp-block-video figcaption{color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video figcaption{color:hsla(0,0%,100%,.65)}.wp-block-template-part.has-background{padding:1.25em 2.375em;margin-top:0;margin-bottom:0}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+</style>
+<style id='architect-amazon-style-inline-css' type='text/css'>
+:root{--amazon-product-button-background: #ff9900; --amazon-product-button-color: #ffffff;}
+</style>
+
+
+
+
+
+
+<style id='ez-toc-inline-css' type='text/css'>
+div#ez-toc-container p.ez-toc-title {font-size: 95%;}div#ez-toc-container p.ez-toc-title {font-weight: 500;}div#ez-toc-container ul li {font-size: 95%;}div#ez-toc-container nav ul ul li ul li {font-size: %!important;}div#ez-toc-container {background: #fff;border: 1px solid #ffffff;}div#ez-toc-container p.ez-toc-title {color: #494949;}div#ez-toc-container ul.ez-toc-list a {color: #636363;}div#ez-toc-container ul.ez-toc-list a:hover {color: #adadad;}div#ez-toc-container ul.ez-toc-list a:visited {color: #000000;}
+</style>
+
+<style id='rocket-lazyload-inline-css' type='text/css'>
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;cursor:pointer;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:72px;width:72px;left:50%;top:50%;margin-left:-36px;margin-top:-36px;position:absolute;background:url(https://www.optima-translation.com/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat;cursor:pointer}.wp-has-aspect-ratio .rll-youtube-player{position:absolute;padding-bottom:0;width:100%;height:100%;top:0;bottom:0;left:0;right:0}
+</style>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/auto-seo-links/public/js/auto-seo-links-public.min.js?ver=1.0.2' id='auto-seo-links-js' defer></script>
+<!--[if lte IE 8]>
+<script type='text/javascript' src='https://www.optima-translation.com/wp-content/themes/colormag/js/html5shiv.min.js?ver=2.1.3' id='html5-js'></script>
+<![endif]-->
+<script type='text/javascript' id='wp-disable-css-lazy-load-js-extra'>
+/* <![CDATA[ */
+var WpDisableAsyncLinks = {"wp-disable-font-awesome":"https:\/\/www.optima-translation.com\/wp-content\/themes\/colormag\/fontawesome\/css\/font-awesome.min.css"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/wp-disable/js/css-lazy-load.min.js?ver=918db92b7406712e75b8ae344d879db8' id='wp-disable-css-lazy-load-js' defer></script>
+<link rel="alternate" type="application/json+oembed" href="https://www.optima-translation.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.optima-translation.com%2Fcomment-utiliser-deepl-gratuitement-1514" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.optima-translation.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.optima-translation.com%2Fcomment-utiliser-deepl-gratuitement-1514&#038;format=xml" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.optima-translation.com/#website","url":"https://www.optima-translation.com/","name":"optima-translation.com","potentialAction":{"@type":"SearchAction","target":"https://www.optima-translation.com/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+		<link rel="manifest" href="https://www.optima-translation.com/wp-json/wp/v2/web-app-manifest">
+		<meta name="theme-color" content="#eaeaea">
+						<meta name="apple-mobile-web-app-capable" content="yes">
+				<meta name="mobile-web-app-capable" content="yes">
+
+				
+				<meta name="apple-mobile-web-app-title" content="optima-translation.com">
+		<meta name="application-name" content="optima-translation.com">
+				<style type="text/css">
+		.winamaz-product-wrapper .winamaz-button { border-radius:10px; }
+	</style>
+		<style type="text/css">
+		.winamaz-product-wrapper .image-container img { border-radius:10%; }
+	</style>
+		<style type="text/css">
+		.winamaz-product-wrapper,
+		.winamaz-image-wrapper img { border-radius:10px; }
+	</style>
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript><script type="rocketlazyloadscript">
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}
+var rp=loadCSS.relpreload={};rp.support=(function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=!1}
+return function(){return ret}})();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}
+if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}
+setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3000)};rp.poly=function(){if(rp.support()){return}
+var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",!0);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}
+if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}
+else{w.loadCSS=loadCSS}}(typeof global!=="undefined"?global:this))
+</script></head>
+
+<body data-rsssl=1 class="post-template-default single single-post postid-1514 single-format-standard wp-embed-responsive has-winamaz right-sidebar wide">
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-dark-grayscale"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 0.49803921568627" /><feFuncG type="table" tableValues="0 0.49803921568627" /><feFuncB type="table" tableValues="0 0.49803921568627" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-grayscale"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 1" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0 1" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-purple-yellow"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.54901960784314 0.98823529411765" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0.71764705882353 0.25490196078431" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-blue-red"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 1" /><feFuncG type="table" tableValues="0 0.27843137254902" /><feFuncB type="table" tableValues="0.5921568627451 0.27843137254902" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-midnight"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 0" /><feFuncG type="table" tableValues="0 0.64705882352941" /><feFuncB type="table" tableValues="0 1" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-magenta-yellow"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.78039215686275 1" /><feFuncG type="table" tableValues="0 0.94901960784314" /><feFuncB type="table" tableValues="0.35294117647059 0.47058823529412" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-purple-green"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.65098039215686 0.40392156862745" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0.44705882352941 0.4" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-blue-orange"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.098039215686275 1" /><feFuncG type="table" tableValues="0 0.66274509803922" /><feFuncB type="table" tableValues="0.84705882352941 0.41960784313725" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg>		<div id="page" class="hfeed site">
+				<a class="skip-link screen-reader-text" href="#main">Passer au contenu</a>
+				<header id="masthead" class="site-header clearfix ">
+				<div id="header-text-nav-container" class="clearfix">
+		
+		<div class="inner-wrap">
+			<div id="header-text-nav-wrap" class="clearfix">
+
+				<div id="header-left-section">
+					
+					<div id="header-text" class="">
+													<h3 id="site-title">
+								<a href="https://www.optima-translation.com/" title="optima-translation.com" rel="home">optima-translation.com</a>
+							</h3>
+						
+											</div><!-- #header-text -->
+				</div><!-- #header-left-section -->
+
+				<div id="header-right-section">
+											<div id="header-right-sidebar" class="clearfix">
+							<aside id="categories-4" class="widget widget_categories clearfix"><h3 class="widget-title">Explorer</h3>
+			<ul>
+					<li class="cat-item cat-item-1"><a href="https://www.optima-translation.com/blog">blog</a>
+</li>
+			</ul>
+
+			</aside>						</div>
+										</div><!-- #header-right-section -->
+
+			</div><!-- #header-text-nav-wrap -->
+		</div><!-- .inner-wrap -->
+
+		
+		<nav id="site-navigation" class="main-navigation clearfix" role="navigation">
+			<div class="inner-wrap clearfix">
+				
+				
+				<p class="menu-toggle"></p>
+				
+			</div>
+		</nav>
+
+				</div><!-- #header-text-nav-container -->
+				</header><!-- #masthead -->
+				<div id="main" class="clearfix">
+				<div class="inner-wrap clearfix">
+		
+	<div id="primary">
+		<div id="content" class="clearfix">
+
+			
+<article id="post-1514" class="post-1514 post type-post status-publish format-standard has-post-thumbnail category-blog">
+	
+				<div class="featured-image">
+				<img width="688" height="387" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20688%20387'%3E%3C/svg%3E" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="Comment utiliser DeepL gratuitement ?" data-lazy-srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-utiliser-DeepL-gratuitement-.jpeg 688w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-utiliser-DeepL-gratuitement--300x169.jpeg 300w" data-lazy-sizes="(max-width: 688px) 100vw, 688px" data-lazy-src="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-utiliser-DeepL-gratuitement-.jpeg" /><noscript><img width="688" height="387" src="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-utiliser-DeepL-gratuitement-.jpeg" class="attachment-colormag-featured-image size-colormag-featured-image wp-post-image" alt="Comment utiliser DeepL gratuitement ?" srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-utiliser-DeepL-gratuitement-.jpeg 688w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-utiliser-DeepL-gratuitement--300x169.jpeg 300w" sizes="(max-width: 688px) 100vw, 688px" /></noscript>			</div>
+			
+	<div class="article-content clearfix">
+
+		<div class="above-entry-meta"><span class="cat-links"><a href="https://www.optima-translation.com/blog"  rel="category tag">blog</a>&nbsp;</span></div>
+		<header class="entry-header">
+			<h1 class="entry-title">
+				Comment utiliser DeepL gratuitement ?			</h1>
+		</header>
+
+		<div class="below-entry-meta">
+			<span class="posted-on"><a href="https://www.optima-translation.com/comment-utiliser-deepl-gratuitement-1514" title="5h15" rel="bookmark"><i class="fa fa-calendar-o"></i> <time class="entry-date published updated" datetime="2022-06-03T05:15:38+02:00">3 juin 2022</time></a></span>
+			<span class="byline">
+				<span class="author vcard">
+					<i class="fa fa-user"></i>
+					<a class="url fn n"
+					   href="https://www.optima-translation.com/author"
+					   title=""
+					>
+											</a>
+				</span>
+			</span>
+
+			</div>
+		<div class="entry-content clearfix">
+			
+<p><strong>La version gratuite est idéale pour transcrire, par exemple, un article ou une lettre dans la langue de votre choix. Dans tous les cas, le résultat sera lisse et cohérent.</strong></p>
+
+
+<div id="ez-toc-container" class="ez-toc-v2_0_34 counter-flat ez-toc-counter ez-toc-container-direction">
+<div class="ez-toc-title-container">
+<span class="ez-toc-title-toggle"><a class="ez-toc-pull-right ez-toc-btn ez-toc-btn-xs ez-toc-btn-default ez-toc-toggle" style="display: none;"><i class="ez-toc-glyphicon ez-toc-icon-toggle"></i></a></span></div>
+<nav><ul class='ez-toc-list ez-toc-list-level-1'><li class='ez-toc-page-1'><a class="ez-toc-link ez-toc-heading-1" href="#Comment-modifier-un-document-traduit-par-DeepL" title="Comment modifier un document traduit par DeepL ?">Comment modifier un document traduit par DeepL ?</a></li><li class='ez-toc-page-1'><a class="ez-toc-link ez-toc-heading-2" href="#Quels-sont-les-meilleurs-sites-de-traduction" title="Quels sont les meilleurs sites de traduction ?">Quels sont les meilleurs sites de traduction ?</a></li><li class='ez-toc-page-1'><a class="ez-toc-link ez-toc-heading-3" href="#Comment-fonctionne-DeepL" title="Comment fonctionne DeepL ?">Comment fonctionne DeepL ?</a></li><li class='ez-toc-page-1'><a class="ez-toc-link ez-toc-heading-4" href="#Pourquoi-DeepL-ne-fonctionne-plus" title="Pourquoi DeepL ne fonctionne plus ?">Pourquoi DeepL ne fonctionne plus ?</a></li><li class='ez-toc-page-1'><a class="ez-toc-link ez-toc-heading-5" href="#Comment-utiliser-DeepL-Translator" title="Comment utiliser DeepL Translator ?">Comment utiliser DeepL Translator ?</a></li><li class='ez-toc-page-1'><a class="ez-toc-link ez-toc-heading-6" href="#Comment-activer-la-traduction-automatique-sur-Google-Chrome" title="Comment activer la traduction automatique sur Google Chrome ?">Comment activer la traduction automatique sur Google Chrome ?</a></li></ul></nav></div>
+<h2><span class="ez-toc-section" id="Comment-modifier-un-document-traduit-par-DeepL"></span>Comment modifier un document traduit par DeepL ?<span class="ez-toc-section-end"></span></h2>
+
+<figure><img width="512" height="512" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20512%20512'%3E%3C/svg%3E" class="attachment-full size-full" alt="Comment modifier un document traduit par DeepL ?" loading="lazy" data-lazy-srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-modifier-un-document-traduit-par-DeepL-.png 512w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-modifier-un-document-traduit-par-DeepL--300x300.png 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-modifier-un-document-traduit-par-DeepL--150x150.png 150w" data-lazy-sizes="(max-width: 512px) 100vw, 512px" data-lazy-src="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-modifier-un-document-traduit-par-DeepL-.png" /><noscript><img width="512" height="512" src="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-modifier-un-document-traduit-par-DeepL-.png" class="attachment-full size-full" alt="Comment modifier un document traduit par DeepL ?" loading="lazy" srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-modifier-un-document-traduit-par-DeepL-.png 512w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-modifier-un-document-traduit-par-DeepL--300x300.png 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-modifier-un-document-traduit-par-DeepL--150x150.png 150w" sizes="(max-width: 512px) 100vw, 512px" /></noscript><figcaption>© winudf.com</figcaption></figure>
+<p>Deepl offre notamment la possibilité de traduire directement des documents Word. Lire aussi : <a href='https://www.optima-translation.com/la-meilleure-maniere-de-traduire-une-video-youtube-1614'><strong>La meilleure maniere de traduire une video youtube</strong></a>. Cependant, les documents générés sont protégés par une protection dite « formulaire » et ne peuvent donc pas être modifiés.</p>
+
+
+
+<p>Comment coller du texte sur DeepL ? Pour l&rsquo;utiliser, copiez et collez simplement le texte ou faites glisser et déposez le fichier dans le champ de traduction, puis spécifiez la langue dans laquelle vous souhaitez le traduire. La langue d&rsquo;origine est automatiquement détectée par l&rsquo;outil.</p>
+
+
+
+<p>Comment utiliser DeepL Translator ? Entrez simplement votre texte et la traduction s&rsquo;affichera. Si nécessaire, vous pouvez le personnaliser en cliquant directement dans le texte. DeepL vous montrera des versions alternatives. Vous pouvez modifier légèrement la phrase et voir comment cela affecte la langue cible.</p>
+
+
+<div class="has-normal-font-size"><strong>Ceci pourrait vous intéresser</strong></div>
+<div class="wp-block-columns">
+<div class="wp-block-column" style="flex-basis:100%">
+<ul>
+<li>
+<a href='https://www.optima-translation.com/comment-traduire-une-video-anglais-en-francais-en-ligne-1626'>Comment traduire une vidéo anglais en français en ligne ?</a></li>
+<li>
+<a href='https://www.optima-translation.com/comment-traduire-un-document-avec-google-doc-1584'>Comment traduire un document avec Google Doc ?</a></li>
+<li>
+<a href='https://www.optima-translation.com/comment-installer-toutes-les-astuces-traduction-automatique-google-1530'>Comment installer  ? Toutes les astuces traduction automatique google</a></li>
+<li>
+<a href='https://www.optima-translation.com/toutes-les-etapes-pour-traduire-facilement-gmail-en-francais-1638'>Toutes les étapes pour traduire facilement gmail en francais</a></li>
+<li>
+<a href='https://www.optima-translation.com/comment-installer-deepl-1608'>Comment installer DeepL ?</a></li>
+</ul>
+</div>
+</div>
+<h2><span class="ez-toc-section" id="Quels-sont-les-meilleurs-sites-de-traduction"></span>Quels sont les meilleurs sites de traduction ?<span class="ez-toc-section-end"></span></h2>
+
+<figure><img width="800" height="550" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20550'%3E%3C/svg%3E" class="attachment-full size-full" alt="Quels sont les meilleurs sites de traduction ?" loading="lazy" data-lazy-srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Quels-sont-les-meilleurs-sites-de-traduction-.png 800w, https://www.optima-translation.com/wp-content/uploads/2022/06/Quels-sont-les-meilleurs-sites-de-traduction--300x206.png 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Quels-sont-les-meilleurs-sites-de-traduction--768x528.png 768w" data-lazy-sizes="(max-width: 800px) 100vw, 800px" data-lazy-src="https://www.optima-translation.com/wp-content/uploads/2022/06/Quels-sont-les-meilleurs-sites-de-traduction-.png" /><noscript><img width="800" height="550" src="https://www.optima-translation.com/wp-content/uploads/2022/06/Quels-sont-les-meilleurs-sites-de-traduction-.png" class="attachment-full size-full" alt="Quels sont les meilleurs sites de traduction ?" loading="lazy" srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Quels-sont-les-meilleurs-sites-de-traduction-.png 800w, https://www.optima-translation.com/wp-content/uploads/2022/06/Quels-sont-les-meilleurs-sites-de-traduction--300x206.png 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Quels-sont-les-meilleurs-sites-de-traduction--768x528.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></noscript><figcaption>© ghacks.net</figcaption></figure>
+<p>8 des meilleurs services de traduction en ligne gratuits Sur le même sujet : <a href='https://www.optima-translation.com/pourquoi-deepl-ne-fonctionne-plus-1548'><strong>Pourquoi DeepL ne fonctionne plus ?</strong></a></p>
+
+
+
+<ul>
+<li>Profond</li>
+<li>Traducteur Google.</li>
+<li>Inversé.</li>
+<li>Sytran.</li>
+<li>Traduire.com.</li>
+<li>Traducteur Microsoft.</li>
+<li>Traducteur Yandex.</li>
+<li>Traducteur babylonien.</li>
+</ul>
+
+
+
+<p>Quel est le meilleur traducteur de la langue anglaise ? Google Traduction Le géant de la traduction est le traducteur en ligne le plus célèbre. Celui que tout le monde connaît. Il vous permet de traduire des textes et des documents dans plus de 90 langues, de l&rsquo;afrikaans au zoulou, en passant par de nombreuses langues du monde entier, dont bien sûr l&rsquo;anglais et le français.</p>
+
+
+
+<p>Quelle est la meilleure application de traduction gratuite ? The Best : Google Translate Il n&rsquo;y a pas de débat sur la meilleure application Android, « the best all-rounder » comme disent les anglophones. Le service de traduction de Google couvre la plupart de vos besoins généraux.</p>
+
+
+<h2><span class="ez-toc-section" id="Comment-fonctionne-DeepL"></span>Comment fonctionne DeepL ?<span class="ez-toc-section-end"></span></h2>
+
+<figure><img width="891" height="1004" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20891%201004'%3E%3C/svg%3E" class="attachment-full size-full" alt="Comment fonctionne DeepL ?" loading="lazy" data-lazy-srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-fonctionne-DeepL-.png 891w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-fonctionne-DeepL--266x300.png 266w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-fonctionne-DeepL--768x865.png 768w" data-lazy-sizes="(max-width: 891px) 100vw, 891px" data-lazy-src="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-fonctionne-DeepL-.png" /><noscript><img width="891" height="1004" src="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-fonctionne-DeepL-.png" class="attachment-full size-full" alt="Comment fonctionne DeepL ?" loading="lazy" srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-fonctionne-DeepL-.png 891w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-fonctionne-DeepL--266x300.png 266w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-fonctionne-DeepL--768x865.png 768w" sizes="(max-width: 891px) 100vw, 891px" /></noscript><figcaption>© gzn.jp</figcaption></figure>
+<p>DeepL reconnaît automatiquement la langue source. A voir aussi : <a href='https://www.optima-translation.com/decouvrez-les-meilleures-facons-de-traduire-anglais-en-francais-1596'><strong>Découvrez les meilleures façons de traduire anglais en français</strong></a>. Il fonctionne comme un cerveau : non seulement il peut calculer et traiter d&rsquo;énormes quantités de données, mais il peut aussi corriger ses erreurs et s&rsquo;optimiser.</p>
+
+
+
+<p>Comment utiliser DeepL ? Dans « Accueil », sélectionnez « Traductions », puis ouvrez le fichier pour commencer à le traduire. Sur le côté droit du document, la fenêtre « Résultats » affichera les traductions automatiques de DeepL que vous pouvez utiliser et modifier directement sur le segment de langue cible.</p>
+
+
+
+<p>Comment fonctionne le traducteur DeepL ? DeepL Traduction est basé sur une vaste collection de phrases, d&rsquo;idiomes et d&rsquo;extraits traduits à la main de Linguee. D&rsquo;autre part, Google Translate utilise un mélange d&rsquo;actifs numériques dans différentes langues.</p>
+
+
+<h2><span class="ez-toc-section" id="Pourquoi-DeepL-ne-fonctionne-plus"></span>Pourquoi DeepL ne fonctionne plus ?<span class="ez-toc-section-end"></span></h2>
+
+<figure><img width="1920" height="1080" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201920%201080'%3E%3C/svg%3E" class="attachment-full size-full" alt="Pourquoi DeepL ne fonctionne plus ?" loading="lazy" data-lazy-srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus-.png 1920w, https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus--300x169.png 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus--1024x576.png 1024w, https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus--768x432.png 768w" data-lazy-sizes="(max-width: 1920px) 100vw, 1920px" data-lazy-src="https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus-.png" /><noscript><img width="1920" height="1080" src="https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus-.png" class="attachment-full size-full" alt="Pourquoi DeepL ne fonctionne plus ?" loading="lazy" srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus-.png 1920w, https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus--300x169.png 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus--1024x576.png 1024w, https://www.optima-translation.com/wp-content/uploads/2022/06/Pourquoi-DeepL-ne-fonctionne-plus--768x432.png 768w" sizes="(max-width: 1920px) 100vw, 1920px" /></noscript><figcaption>© langshop.app</figcaption></figure>
+<p>Si vous ne parvenez pas à ouvrir DeepL. Lire aussi : <a href='https://www.optima-translation.com/les-10-meilleures-facons-dinstaller-deepl-1572'><strong>Les 10 meilleures façons d&rsquo;installer deepl</strong></a>.com dans votre navigateur, ou si certaines fonctionnalités du traducteur Web ne fonctionnent pas correctement, cela peut être dû à un pare-feu, un VPN ou un serveur proxy qui bloque vos requêtes de recherche.</p>
+
+
+
+<p>Comment utiliser DeepL gratuitement ? Dans sa version gratuite, DeepL est vraiment très simple d&rsquo;utilisation. Copiez et collez simplement le texte et sa traduction apparaît presque instantanément. DeepL reconnaît automatiquement la langue source et vous n&rsquo;avez qu&rsquo;à sélectionner la langue de traduction si ce n&rsquo;est pas le français.</p>
+
+
+
+<p>Comment installer DeepL sur PC ? L&rsquo;intégration de DeepL sur votre ordinateur est extrêmement simple. Téléchargez simplement la version de l&rsquo;application qui convient le mieux au système d&rsquo;exploitation de votre ordinateur, ouvrez le fichier téléchargé et suivez la procédure d&rsquo;installation rapide. DeepL sera alors prêt à l&#8217;emploi !</p>
+
+
+<h2><span class="ez-toc-section" id="Comment-utiliser-DeepL-Translator"></span>Comment utiliser DeepL Translator ?<span class="ez-toc-section-end"></span></h2>
+
+
+<p>Le traducteur de documents est extrêmement intuitif et facile à utiliser. Lire aussi : <a href='https://www.optima-translation.com/6-astuces-pour-traduire-video-youtube-anglais-francais-1554'><strong>6 astuces pour traduire video youtube anglais francais</strong></a>. Placez simplement le fichier à traduire dans le champ de saisie de gauche comme indiqué ci-dessous : Après avoir terminé le téléchargement du fichier, sélectionnez la langue de traduction souhaitée.</p>
+
+
+
+<p>Comment utiliser la traduction DeepL ? En d&rsquo;autres termes, vous pouvez utiliser DeepL dans tous les programmes et applications de votre ordinateur ! Pour traduire, sélectionnez simplement le texte et appuyez deux fois sur le raccourci clavier Ctrl C (Windows) ou Œ˜C (Mac).</p>
+
+
+
+<p>Comment activer DeepL ? Pour activer DeepL pour Windows, sélectionnez le texte que vous souhaitez traduire, maintenez la touche Ctrl enfoncée et appuyez deux fois sur la touche C (Ctrl C C). La fenêtre DeepL apparaîtra alors et affichera la traduction.</p>
+
+
+
+<p>Comment traduire un document PDF avec DeepL ? Pour traduire des fichiers PDF, connectez-vous à votre compte DeepL Pro et confirmez que vous souhaitez traduire ces documents à l&rsquo;aide de l&rsquo;API Adobe. Pour ce faire, accédez à l&rsquo;onglet Paramètres de traduction de votre compte, puis activez la traduction PDF.</p>
+
+
+<h2><span class="ez-toc-section" id="Comment-activer-la-traduction-automatique-sur-Google-Chrome"></span>Comment activer la traduction automatique sur Google Chrome ?<span class="ez-toc-section-end"></span></h2>
+
+
+<p>Réglages. Au bas de la page, cliquez sur Paramètres avancés. Dans la section « Langues », cliquez sur Langue. Voir l'article : <a href='https://www.optima-translation.com/5-astuces-pour-traduire-les-histoires-sur-wattpad-1602'><strong>5 astuces pour traduire les histoires sur wattpad</strong></a>. Cochez ou décochez « Me demander de traduire des pages rédigées dans une langue que je ne connais pas ».</p>
+
+
+
+<p>Comment traduire un texte de l&rsquo;anglais vers le français ? 1) Téléchargez l&rsquo;application gratuite Google Translate depuis PlayStore ou Apple iTunes 2) Lancez l&rsquo;application et sélectionnez la langue dans laquelle vous souhaitez traduire (par exemple, de l&rsquo;anglais vers le français ou vice versa).</p>
+
+
+
+<p>Comment traduire un site web en français sur Google ? L&rsquo;adresse est : https://translate.google.com. Sélectionnez la langue source (la langue dans laquelle le contenu du site Web est écrit, vous pouvez également sélectionner « Détecter la langue ») et la langue cible. Entrez ensuite l&rsquo;URL de la page que vous souhaitez traduire dans le champ de gauche.</p>
+<div style="background-color:#ffffff; padding: 2rem; 1rem;">
+<div class="has-normal-font-size has-text-align-center"><strong>Lire aussi</strong></div>
+<div class="wp-block-columns" style="margin-top: 2rem;">
+<div class="wp-block-column" style="flex-basis:33.333333333333%">
+<div>
+<a href='https://www.optima-translation.com/comment-activer-deepl-1536'><img width="1080" height="721" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201080%20721'%3E%3C/svg%3E" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Comment activer DeepL ?" style="width: 100% !important; height:auto !important; aspect-ratio: 4/3;" loading="lazy" data-lazy-srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL-.jpeg 1080w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL--300x200.jpeg 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL--1024x684.jpeg 1024w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL--768x513.jpeg 768w" data-lazy-sizes="(max-width: 1080px) 100vw, 1080px" data-lazy-src="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL-.jpeg" /><noscript><img width="1080" height="721" src="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL-.jpeg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Comment activer DeepL ?" style="width: 100% !important; height:auto !important; aspect-ratio: 4/3;" loading="lazy" srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL-.jpeg 1080w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL--300x200.jpeg 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL--1024x684.jpeg 1024w, https://www.optima-translation.com/wp-content/uploads/2022/06/Comment-activer-DeepL--768x513.jpeg 768w" sizes="(max-width: 1080px) 100vw, 1080px" /></noscript>
+</a><a href='https://www.optima-translation.com/comment-activer-deepl-1536' style='color:#171717; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;'>Comment activer DeepL ?</a></div>
+</div>
+<div class="wp-block-column" style="flex-basis:33.333333333333%">
+<div>
+<a href='https://www.optima-translation.com/5-idees-pour-traduire-les-euros-en-francs-1644'><img width="1080" height="720" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201080%20720'%3E%3C/svg%3E" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="5 idées pour traduire les euros en francs" style="width: 100% !important; height:auto !important; aspect-ratio: 4/3;" loading="lazy" data-lazy-srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs.jpeg 1080w, https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs-300x200.jpeg 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs-1024x683.jpeg 1024w, https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs-768x512.jpeg 768w" data-lazy-sizes="(max-width: 1080px) 100vw, 1080px" data-lazy-src="https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs.jpeg" /><noscript><img width="1080" height="720" src="https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs.jpeg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="5 idées pour traduire les euros en francs" style="width: 100% !important; height:auto !important; aspect-ratio: 4/3;" loading="lazy" srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs.jpeg 1080w, https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs-300x200.jpeg 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs-1024x683.jpeg 1024w, https://www.optima-translation.com/wp-content/uploads/2022/06/5-idees-pour-traduire-les-euros-en-francs-768x512.jpeg 768w" sizes="(max-width: 1080px) 100vw, 1080px" /></noscript>
+</a><a href='https://www.optima-translation.com/5-idees-pour-traduire-les-euros-en-francs-1644' style='color:#171717; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;'>5 idées pour traduire les euros en francs</a></div>
+</div>
+<div class="wp-block-column" style="flex-basis:33.333333333333%">
+<div>
+<a href='https://www.optima-translation.com/est-ce-que-deepl-est-fiable-1620'><img width="1080" height="720" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201080%20720'%3E%3C/svg%3E" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Est-ce que DeepL est fiable ?" style="width: 100% !important; height:auto !important; aspect-ratio: 4/3;" loading="lazy" data-lazy-srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable-.jpeg 1080w, https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable--300x200.jpeg 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable--1024x683.jpeg 1024w, https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable--768x512.jpeg 768w" data-lazy-sizes="(max-width: 1080px) 100vw, 1080px" data-lazy-src="https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable-.jpeg" /><noscript><img width="1080" height="720" src="https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable-.jpeg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Est-ce que DeepL est fiable ?" style="width: 100% !important; height:auto !important; aspect-ratio: 4/3;" loading="lazy" srcset="https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable-.jpeg 1080w, https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable--300x200.jpeg 300w, https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable--1024x683.jpeg 1024w, https://www.optima-translation.com/wp-content/uploads/2022/06/Est-ce-que-DeepL-est-fiable--768x512.jpeg 768w" sizes="(max-width: 1080px) 100vw, 1080px" /></noscript>
+</a><a href='https://www.optima-translation.com/est-ce-que-deepl-est-fiable-1620' style='color:#171717; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;'>Est-ce que DeepL est fiable ?</a></div>
+</div>
+</div>
+</div>
+		</div>
+
+	</div>
+
+	</article>
+
+		</div><!-- #content -->
+
+		
+		<ul class="default-wp-page clearfix">
+			<li class="previous"></li>
+			<li class="next"><a href="https://www.optima-translation.com/comment-traduire-un-texte-scanne-en-francais-1518" rel="next">Comment traduire un texte scanné en français ? <span class="meta-nav">&rarr;</span></a></li>
+		</ul>
+
+		
+	</div><!-- #primary -->
+
+
+<div id="secondary">
+	
+	
+	</div>
+		</div><!-- .inner-wrap -->
+				</div><!-- #main -->
+				<footer id="colophon" class="clearfix ">
+				<div class="footer-socket-wrapper clearfix">
+			<div class="inner-wrap">
+				<div class="footer-socket-area">
+		
+		<div class="footer-socket-right-section">
+					</div>
+
+				<div class="footer-socket-left-section">
+			<div class="copyright">Copyright &copy; 2022 <a href="https://www.optima-translation.com/" title="optima-translation.com" ><span>optima-translation.com</span></a>. Tous droits réservés.<br>Theme <a href="https://themegrill.com/themes/colormag" target="_blank" title="ColorMag" rel="nofollow"><span>ColorMag</span></a> par ThemeGrill. Propulsé par <a href="https://wordpress.org" target="_blank" title="WordPress" rel="nofollow"><span>WordPress</span></a>.</div>		</div>
+				</div><!-- .footer-socket-area -->
+					</div><!-- .inner-wrap -->
+		</div><!-- .footer-socket-wrapper -->
+				</footer><!-- #colophon -->
+				<a href="#masthead" id="scroll-up"><i class="fa fa-chevron-up"></i></a>
+				</div><!-- #page -->
+			<script type="rocketlazyloadscript" data-rocket-type="module">
+		import { Workbox } from "https:\/\/www.optima-translation.com\/wp-content\/plugins\/pwa\/wp-includes\/js\/workbox-v6.5.3\/workbox-window.prod.js";
+
+		if ( 'serviceWorker' in navigator ) {
+			window.wp = window.wp || {};
+			window.wp.serviceWorkerWindow = new Workbox(
+				"https:\/\/www.optima-translation.com\/wp.serviceworker",
+				{"scope":"\/"}			);
+			window.wp.serviceWorkerWindow.register();
+		}
+	</script>
+	<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-includes/js/imagesloaded.min.js?ver=4.1.4' id='imagesloaded-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/pixwell-core/assets/jquery.mp.min.js?ver=1.1.0' id='jquery-magnific-popup-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/pixwell-core/assets/jquery.isotope.min.js?ver=3.0.6' id='jquery-isotope-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/pixwell-core/assets/rbcookie.min.js?ver=1.0.3' id='rbcookie-js' defer></script>
+<script type='text/javascript' id='pixwell-core-script-js-extra'>
+/* <![CDATA[ */
+var pixwellCoreParams = {"ajaxurl":"https:\/\/www.optima-translation.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/pixwell-core/assets/core.js?ver=5.0' id='pixwell-core-script-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=5.6.3' id='swv-js' defer></script>
+<script type='text/javascript' id='contact-form-7-js-extra'>
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/www.optima-translation.com\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.6.3' id='contact-form-7-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/winamaz/core/assets/vendor/match-height/jquery.match-height-min.js?ver=918db92b7406712e75b8ae344d879db8' id='winamaz-jquery.match-height-min-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/winamaz/core/assets/vendor/tooltip/tooltipster.bundle.min.js?ver=918db92b7406712e75b8ae344d879db8' id='winamaz-tooltipster.bundle-js' defer></script>
+<script type='text/javascript' id='winamaz-main-js-extra'>
+/* <![CDATA[ */
+var winamazPlugin = {"ajaxurl":"https:\/\/www.optima-translation.com\/wp-admin\/admin-ajax.php","pluginName":"Winamaz (Lite)","namespace":"winamaz","baseUrl":"https:\/\/www.optima-translation.com\/wp-content\/plugins\/winamaz","string":{"request":{"error":"Une erreur s'est produite lors de l'op\u00e9ration!","inqueue":"La demande est plac\u00e9e en file d'attente","unavailable":"Non disponible"}}};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/winamaz/core/assets/front/js/main.js?ver=221002065020' id='winamaz-main-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/themes/colormag/js/jquery.bxslider.min.js?ver=2.1.3' id='colormag-bxslider-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/themes/colormag/js/navigation.min.js?ver=2.1.3' id='colormag-navigation-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/themes/colormag/js/fitvids/jquery.fitvids.min.js?ver=2.1.3' id='colormag-fitvids-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/themes/colormag/js/skip-link-focus-fix.min.js?ver=2.1.3' id='colormag-skip-link-focus-fix-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/themes/colormag/js/colormag-custom.min.js?ver=2.1.3' id='colormag-custom-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/vendor/smooth-scroll/jquery.smooth-scroll.min.js?ver=2.2.0' id='ez-toc-jquery-smooth-scroll-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/vendor/js-cookie/js.cookie.min.js?ver=2.2.1' id='ez-toc-js-cookie-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/vendor/sticky-kit/jquery.sticky-kit.min.js?ver=1.9.2' id='ez-toc-jquery-sticky-kit-js' defer></script>
+<script type='text/javascript' id='ez-toc-js-js-extra'>
+/* <![CDATA[ */
+var ezTOC = {"scroll_offset":"30"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://www.optima-translation.com/wp-content/plugins/easy-table-of-contents/assets/js/front.min.js?ver=2.0.34-1664530745' id='ez-toc-js-js' defer></script>
+<script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.optima-translation.com/wp-content/plugins/wp-rocket/assets/js/lazyload/17.5/lazyload.min.js"></script><script>function lazyLoadThumb(e){var t='<img data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.dataset.query.length?'':'&'+this.dataset.query;e.setAttribute("src",t.replace("ID",this.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script>
+<script type="rocketlazyloadscript">"use strict";var wprRemoveCPCSS=function wprRemoveCPCSS(){var elem;document.querySelector('link[data-rocket-async="style"][rel="preload"]')?setTimeout(wprRemoveCPCSS,200):(elem=document.getElementById("rocket-critical-css"))&&"remove"in elem&&elem.remove()};window.addEventListener?window.addEventListener("load",wprRemoveCPCSS):window.attachEvent&&window.attachEvent("onload",wprRemoveCPCSS);</script><noscript><link rel="stylesheet" href="https://www.optima-translation.com/wp-content/cache/min/1/96918b664ba0dea58b85cdc2900425ad.css" media="all" data-minify="1" /></noscript></body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1664736620 -->

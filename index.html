@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+   
+    <head>
+        <script src="jquery-3.5.1.min.js"></script>
+        <script src="script.js"></script>
+        <meta charset="UTF-8">
+       <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap" rel="stylesheet">    
+      <link href="style.css" rel="stylesheet"> 
+      <link rel="icon" type="image/vnd.icon" href="liegeois-favicon.ico">
+        <title> O'clock Liegeois Homepage 
+        </title>
+    
+    </head>
+
+    <body style="background-image: url('logo/wallpaper1.jpg');">
+      
+        <header>
+            <h1>O'clock Liegeois Homepage</h1>
+            
+          <a id="snow" href="#"><img id="snow-img" src="flocon.png"></a>  
+         </header>
+        <!-- clock html  -->
+        <div class="filler"></div>
+        <svg width="200" height="200">
+            <g>
+                <circle id="shadow" style="fill:rgba(0,0,0,0.1)" cx="97" cy="100" r="87" filter="url(#innerShadow)"></circle>
+                <circle id="circle" style="stroke: #FFF; stroke-width: 12px; fill:#12826f" cx="100" cy="100" r="80"></circle>
+            </g>
+            <g>
+                <line x1="100" y1="100" x2="100" y2="55" transform="rotate(80 100 100)" style="stroke-width: 3px; stroke: #fffbf9;" id="hourhand">
+                    <animatetransform attributeName="transform"
+                                      attributeType="XML"
+                                      type="rotate"
+                                      dur="43200s"
+                                      repeatCount="indefinite"/>
+                </line>
+                <line x1="100" y1="100" x2="100" y2="40" style="stroke-width: 4px; stroke: #fdfdfd;" id="minutehand">
+                    <animatetransform attributeName="transform"
+                                      attributeType="XML"
+                                      type="rotate"
+                                      dur="3600s"
+                                      repeatCount="indefinite"/>
+                </line>
+                <line x1="100" y1="100" x2="100" y2="30" style="stroke-width: 2px; stroke: #C1EFED;" id="secondhand">
+                    <animatetransform attributeName="transform"
+                                      attributeType="XML"
+                                      type="rotate"
+                                      dur="60s"
+                                      repeatCount="indefinite"/>
+                </line>
+            </g>
+            <circle id="center" style="fill:#128A86; stroke: #C1EFED; stroke-width: 2px;" cx="100" cy="100" r="3"></circle>
+        </svg>
+
+        <!-- fin clock html -->
+        <section id="code">
+            <ul>
+                <li> <a href="https://oclock.slippers.live/" target="_blank"><img class="logo" src="logo/slippers.png"></a> </li>
+                <li> <a href="https://kourou.oclock.io/" target="_blank"><img class="logo" src="logo/oclock.png"></a> </li>
+                <li> <a href="https://docs.google.com/spreadsheets/d/18fCsH8VofZVDqG4Z4gobX9kU56XmkEz9XeuFmyJWmxs/edit#gid=0" target="_blank"><img class="logo" src="logo/planning.png"></a> </li>
+                <li> <a href="https://mail.oclock.school/" target="_blank"><img class="logo" src="logo/mailoclock.png"></a> </li>
+                <li> <a href="https://drive.google.com/drive/u/1/my-drive" target="_blank"><img class="logo" src="logo/drivegoogle.png"></a> </li>
+                <li> <a href="https://app.slack.com/" target="_blank"><img class="logo" src="logo/slack.png"></a> </li>
+                <li> <a href="https://github.com/O-clock-Liegeois" target="_blank"><img class="logo" src="logo/github.png"></a> </li>
+                
+
+                <li> <a id="right" href="#"><img class="arrows" src="logo/arrow-right.png"></a> </li>
+            
+            
+            
+            </ul>
+        </section>
+        
+    <!-- PAGE 2 -->
+   
+    <section id="tools">
+            <ul>
+                <li> <a href="https://stackoverflow.com/" target="_blank"><img class="logo" src="logo/stackoverflow.png"></a> </li>
+                <li> <a href="https://www.codecademy.com/" target="_blank"><img class="logo" src="logo/codecademy.png   "></a> </li>
+                <li><a href="https://learn.altissia.org/platform/#/learning-path" target="_blank"><img class="logo" src="logo/altissia.png"></a></li>
+                <li><a href="https://www.deepl.com/fr/translator" target="_blank"><img class="logo" src="logo/deepllogo.png"></a></li>
+                <li><a href="https://devdocs.io/" target="_blank"><img class="logo" src="logo/devdoc.png"></a></li>
+                <li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank"><img class="logo" src="logo/flexbox.jpg"></a></li>
+                <li><a href="https://roadmap.sh/" target="_blank"><img class="logo" src="logo/roadmap.png"></a></li> 
+                
+                
+                
+                <li> <a id="left" href="#"><img class="arrows" src="logo/arrow-left.png"></a> </li>
+                
+            
+            
+            </ul>
+        </section>
+        <section id="jeux">
+            <ul>
+                <li><a href="https://codecombat.com/" target="_blank"><img class="logo" src="logo/codecombat.png"></a></li> 
+                <li><a href="https://zty.pe/" target="_blank"><img class="logo" src="logo/ztype.png"></a></li>
+                <li><a href="https://www.algoblocs.fr/" target="_blank"><img class="logo" src="logo/algoblocs.png"></a></li>  
+                <li><a href="https://flexboxfroggy.com/#fr" target="_blank"><img class="logo" src="logo/flexbox.png"></a></li> 
+                <li><a href="http://www.flexboxdefense.com/" target="_blank"><img class="logo" src="logo/flexboxdefense.jpg"></a></li> 
+            
+            
+            
+            </ul>
+        </section>
+
+        
+        <footer>
+            
+        <P id="madeby">Made by Denovann</P>
+        <button id="chg-bckg">Change background</button>
+        <a id="serpent" href="#" alt="jeu du serpent"><img id="snake-img" src="logo/snake.svg"></a>
+        </footer>
+    </body>
+
+
+    <script src="clockSVG.js"></script>
+    <script src="backgroundShuffle.js"></script>
+</html>

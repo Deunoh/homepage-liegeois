@@ -1,0 +1,195 @@
+*{
+    margin:0;
+    padding:0;
+    
+}
+
+
+header, body, html{
+    width: 100%;
+    height: 100%;
+	margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+}
+
+img {
+  max-width: 100%;
+} 
+
+/* html{
+background-image: url(logo/wallpaper.jpg);
+ background-repeat: no-repeat;
+ background-size: cover;
+
+
+}  */
+ul li {
+    display:inline-block;
+    align-items: center;
+    
+}
+
+header h1 {
+    font-family: 'Oleo Script', cursive;
+    float:left;
+    margin-top: 33px;
+    color:#CDCDCD;
+    margin-left: 50px;
+}
+
+header {
+
+    height:150px;
+    background: linear-gradient(#281D11,40%,transparent);
+}
+ul {
+text-align: center;
+    
+}
+/*bouton background */
+#chg-bckg {
+	display: block;
+	margin: auto;
+	padding: 1.3em 3em;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: #000;
+	background-color: #fff;
+	border: none;
+	border-radius: 45px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+  }
+  
+  #chg-bckg:hover {
+	background-color: #12826f;
+	box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+	color: #fff;
+	transform: translateY(-7px);
+  }
+  
+  #chg-bckg:active {
+	transform: translateY(-1px);
+  }
+
+/* CSS neige */
+#snow{
+	position: absolute;
+	right: 80px;
+	top: 35px;
+}
+#snow-img{
+	height: 40px;
+	width: 40px;
+	margin: auto;
+	padding: 5px;
+}
+#snow-img:hover{
+	transform: scale(1.4);
+}
+/* fin CSS neige */
+.logo {
+    padding: 10px ;
+  transition: transform .2s; /* Animation */
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  margin-top: 40px;
+  border-radius: 40px;
+    
+}
+.arrows{
+	padding: 10px ;
+  transition: transform .2s; /* Animation */
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+.arrows:hover{
+	transform: scale(1.5);
+}
+.logo:hover {
+  transform: scale(1.3);
+}
+
+section {
+    text-align:center;
+    margin-bottom: 20px;
+}
+#snake-img{
+   position: absolute;
+   bottom: 17px;
+   right: 100px;
+    width:35px;
+    height:35px;
+    transition: transform .2s;
+	
+}
+#snake-img:hover{
+    transform:scale(1.6)
+    
+}
+
+#snake-game:active{
+    position:absolute;
+    left: auto;
+    bottom: auto;
+}
+
+#right {
+   position: fixed;
+   top: 50%;
+   bottom: 50%;
+    right: 7%;
+}
+
+#left {
+    position: fixed;
+    top: 50%;
+    bottom: 50%;
+    left: 7%
+}
+/* FOOTER */
+footer {
+    position: absolute;
+    bottom:0;
+    height:50px;
+    width: 100%;
+    justify-content: space-between;
+}
+footer p{
+    position: absolute;
+    left:3%;
+    font-family: 'Oleo Script', cursive;
+    font-size: 20px;
+    color:#EDF2F4;
+    
+}
+#artist{
+	text-decoration: none;
+	color:#EDF2F4;
+	font-family: 'Oleo Script', cursive;
+
+}
+
+/*HORLOGE */
+svg {
+	position: relative;
+	margin: 0 auto;
+	top: 8%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  }
+  
+  
