@@ -174,12 +174,14 @@ footer p{
     font-family: 'Oleo Script', cursive;
     font-size: 20px;
     color:#EDF2F4;
+    text-shadow: 2px 2px 2px #000;
     
 }
 #artist{
 	text-decoration: none;
 	color:#EDF2F4;
 	font-family: 'Oleo Script', cursive;
+  text-shadow: 2px 2px 2px #000;
 
 }
 
