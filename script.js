@@ -3,7 +3,10 @@ $(document).ready(function(){
    
     $("#tools").hide();
     $("#jeux").hide();
+    $("#TP").hide();
 });
+
+
 
 //code flocons de neige
 
@@ -256,6 +259,8 @@ $(function(){
     $("#code").hide(200, function(){ 
         $("#tools").show(200, function(){
             $("#jeux").show(200, function(){
+                $("#TP").show(200, function(){
+                });
             });
           });
       });
@@ -268,10 +273,12 @@ $(function(){
    $("#left").click(function(){
     $("#tools").hide(200, function(){ 
         $("#jeux").hide(200, function(){ 
+            $("#TP").hide(200, function(){
         $("#code").show(200, function(){
         });  
+             });  
         });  
-    });
+     });
     });
 });
 //Animation click serpent
