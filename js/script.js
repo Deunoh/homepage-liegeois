@@ -1,6 +1,16 @@
-
-$(document).ready(function(){
+//script pour alerter computer only
+if($(window).width() <= 1200){
+    window.alert("Ce site s'affiche uniquement sur ordinateur !");
    
+  };
+$(document).ready(function(){
+    $(window).resize(function(){
+        if($(window).width() <= 1200){
+            window.alert("Ce site s'affiche uniquement sur ordinateur !");
+           
+          }
+       });
+//fin du script computer only
     $("#tools").hide();
     $("#jeux").hide();
     $("#TP").hide();

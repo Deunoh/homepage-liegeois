@@ -199,4 +199,10 @@ svg {
 	transform: translate(-50%, -50%);
   }
   
+  @media (max-width: 1200px){
+    body{
+      display: none;
+    }
   
+   
+  }
