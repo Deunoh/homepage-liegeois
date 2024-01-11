@@ -18,6 +18,10 @@ $webCode = [
         "logo" => "./logo/mailoclock.png",
     ],
     [
+        "URL" => "https://tech-oclock.notion.site/93e9802b4d204cb8b1c1221b4f5b06e4?v=622501bd41ee4a97a68647b958194272",
+        "logo" => "./logo/liveoclock.png",
+    ],
+    [
         "URL" => "https://drive.google.com/drive/u/1/my-drive",
         "logo" => "./logo/drivegoogle.png",
     ],
