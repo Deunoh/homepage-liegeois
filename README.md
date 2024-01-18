@@ -21,14 +21,16 @@ Sur chaque image, apparait le nom de l'artiste, ainsi qu'un lien vers on profil 
 
 ![instagram](images/screenshot_readme%20(4).png)
 
+## Sauvegarde du fond d'écran
+Au premier changement de fond d'écran une petite icône d'appareil photo apparait, appuyez dessus et hop votre fond d'écran est sauvegardé pour la prochaine visite ! 
+![saveBackground](images/saveimage.png)
+
+
 ## Serpent SSSSSSS
 En cliquant sur le petit serpent, un jeu apparait après une animation (tutoriel suivi pour apprendre le Javascript, le jeu à été réalisé par John Taieb)
 
 ![serpent](images/screenshot_readme%20(5).png)
 
-## Il neige ! 
-Une petite inscrustation d'un code récupéré sur internet en libre accès pour mettre une ambiance hivernal ! 
 
-![hiver](images/screenshot_readme%20(2).png)
 
 
