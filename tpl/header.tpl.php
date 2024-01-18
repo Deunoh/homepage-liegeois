@@ -17,5 +17,5 @@
       
         <header>
             <h1>O'clock Liegeois Homepage</h1>
-            <a id="snow" href="#"><img id="snow-img" src="flocon.png"></a>  
+            <a class="save" href="#"><img class="save-img" src="logo/polaroid.png"></a>  
          </header>

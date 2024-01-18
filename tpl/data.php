@@ -10,16 +10,16 @@ $webCode = [
         "logo" => "./logo/oclock.png",
     ],
     [
-        "URL" => "https://docs.google.com/spreadsheets/d/18fCsH8VofZVDqG4Z4gobX9kU56XmkEz9XeuFmyJWmxs/edit#gid=0",
-        "logo" => "./logo/planning.png",
+        "URL" => "https://github.com/O-clock-Liegeois",
+        "logo" => "./logo/github.png",
     ],
     [
         "URL" => "https://mail.oclock.school/",
         "logo" => "./logo/mailoclock.png",
     ],
     [
-        "URL" => "https://tech-oclock.notion.site/93e9802b4d204cb8b1c1221b4f5b06e4?v=622501bd41ee4a97a68647b958194272",
-        "logo" => "./logo/liveoclock.png",
+        "URL" => "https://docs.google.com/spreadsheets/d/18fCsH8VofZVDqG4Z4gobX9kU56XmkEz9XeuFmyJWmxs/edit#gid=0",
+        "logo" => "./logo/planning.png",
     ],
     [
         "URL" => "https://drive.google.com/drive/u/1/my-drive",
@@ -30,8 +30,8 @@ $webCode = [
         "logo" => "./logo/slack.png",
     ],
     [
-        "URL" => "https://github.com/O-clock-Liegeois",
-        "logo" => "./logo/github.png",
+        "URL" => "https://tech-oclock.notion.site/93e9802b4d204cb8b1c1221b4f5b06e4?v=622501bd41ee4a97a68647b958194272",
+        "logo" => "./logo/liveoclock.png",
     ],
     
 ];
@@ -56,6 +56,10 @@ $webTools = [
     [
         "URL" => "https://devdocs.io/",
         "logo" => "logo/devdoc.png",
+    ],
+    [
+        "URL" => "https://ndpsoftware.com/git-cheatsheet.html#loc=index;",
+        "logo" => "logo/git.png",
     ],
     [
         "URL" => "https://css-tricks.com/snippets/css/a-guide-to-flexbox/",

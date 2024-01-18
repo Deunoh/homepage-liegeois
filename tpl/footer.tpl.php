@@ -7,8 +7,9 @@
         </footer>
     </body>
 
-
+    <script src="./js/initBackground.js"></script>
     <script src="./js/clockSVG.js"></script>
+    <script src="./js/storage.js"></script>
     <script src="./js/backgroundShuffle.js"></script>
 </html>
 

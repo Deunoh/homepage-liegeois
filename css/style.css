@@ -83,22 +83,26 @@ text-align: center;
 	transform: translateY(-1px);
   }
 
-/* CSS neige */
-#snow{
+/* CSS save */
+.save{
 	position: absolute;
 	right: 80px;
 	top: 35px;
 }
-#snow-img{
-	height: 40px;
-	width: 40px;
+.save-img{
+	
+	width: 70px;
 	margin: auto;
 	padding: 5px;
+  display: none;
 }
-#snow-img:hover{
+.save-img:hover{
 	transform: scale(1.4);
 }
-/* fin CSS neige */
+.polaroid-visible{
+  display: block;
+}
+/* fin CSS save */
 .logo {
     padding: 10px ;
   transition: transform .2s; /* Animation */
