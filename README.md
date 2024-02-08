@@ -23,7 +23,7 @@ Sur chaque image, apparait le nom de l'artiste, ainsi qu'un lien vers on profil 
 
 ## Sauvegarde du fond d'écran
 Au premier changement de fond d'écran une petite icône d'appareil photo apparait, appuyez dessus et hop votre fond d'écran est sauvegardé pour la prochaine visite ! 
-![saveBackground](images/saveimage.png)
+![saveBackground](images/save_2.png)
 
 
 ## Serpent SSSSSSS
