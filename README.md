@@ -1,6 +1,6 @@
 # promoliegeois.net
 
-Petit site combinant HTML/CSS/jQuery et utilisation d'une API.
+Petit site combinant HTML/CSS//JS/jQuery et utilisation d'une API.
 Ce site à pour but de réunir les liens essentiels pour la formation O'clock DWWM.
 
 ## Page d'accueil
