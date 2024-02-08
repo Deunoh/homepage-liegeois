@@ -82,8 +82,8 @@ $webGames = [
         "logo" => "logo/codingame.png",
     ],
     [
-        "URL" => "https://codecombat.com/",
-        "logo" => "logo/codecombat.png",
+        "URL" => "https://leekwars.com/",
+        "logo" => "logo/leekLogo.png",
     ],
     [
         "URL" => "https://www.algoblocs.fr/",

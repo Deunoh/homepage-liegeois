@@ -27,6 +27,7 @@ async function getImg() {
 
         bodyBackground.style.backgroundImage = `url(${fullImage})`;
         madeby.innerHTML = `<a id="artist" href="https://instagram.com/${instaImage}">Made by ${artistImage}</a>`;
+        polaroid.src = "logo/polaroid.png";
         polaroid.classList.add('polaroid-visible');
     }
     catch (error) {
