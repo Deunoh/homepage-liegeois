@@ -1,52 +1,42 @@
-//script pour alerter computer only
-if($(window).width() <= 1200){
-    window.alert("Ce site s'affiche uniquement sur ordinateur !");
-   
-  };
-  
 $(document).ready(function(){
-    $(window).resize(function(){
-        if($(window).width() <= 1200){
-            window.alert("Ce site s'affiche uniquement sur ordinateur !");
-           
-          }
-       });
-   //Fin du script computer only
+    // $(window).resize(function(){
+    //     if($(window).width() <= 1200){
+    //         window.alert("Ce site s'affiche uniquement sur ordinateur !");
+    //     }
+    // });
+    // Fin du script computer only
+    
     $("#tools").hide();
     $("#jeux").hide();
-    $("#TP").hide();
 });
 
 
 
 $(function(){ 
-   
-   $("#right").click(function(){
-    $("#code").hide(200, function(){ 
-        $("#tools").show(200, function(){
-            $("#jeux").show(200, function(){
-                $("#TP").show(200, function(){
+    $("#right").click(function(){
+        $("#code").hide(200, function(){ 
+            $("#tools").show(200, function(){
+                $("#jeux").show(200, function(){
+                    // Code précédemment situé dans la section TP
                 });
             });
-          });
-      });
+        });
     });
 });
 
 
 $(function(){ 
-   
-   $("#left").click(function(){
-    $("#tools").hide(200, function(){ 
-        $("#jeux").hide(200, function(){ 
-            $("#TP").hide(200, function(){
-        $("#code").show(200, function(){
-        });  
-             });  
-        });  
-     });
+    $("#left").click(function(){
+        $("#tools").hide(200, function(){ 
+            $("#jeux").hide(200, function(){ 
+                // Code précédemment situé dans la section TP
+                $("#code").show(200, function(){
+                });  
+            });  
+        });
     });
 });
+
 //Animation click serpent
 document.addEventListener('DOMContentLoaded', function(){
     $(function(){
