@@ -8,7 +8,7 @@
     <meta name="description" content="Site regroupant les liens utile pour la formation DWWM O'clock !">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/styles.css" rel="stylesheet">
     <link rel="icon" type="image/vnd.icon" href="liegeois-favicon.ico">
     <title> O'clock Liegeois Homepage
     </title>
