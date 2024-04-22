@@ -11,7 +11,7 @@ $webCode = [
     ],
     [
         "URL" => "https://github.com/O-clock-Liegeois",
-        "logo" => "./logo/github.png",
+        "logo" => "./logo/github.webp",
     ],
     [
         "URL" => "https://mail.oclock.school/",
