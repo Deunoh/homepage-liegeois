@@ -15,7 +15,7 @@ $webCode = [
     ],
     [
         "URL" => "https://mail.oclock.school/",
-        "logo" => "./logo/mailoclock.png",
+        "logo" => "./logo/oclockmail.webp",
     ],
     [
         "URL" => "https://docs.google.com/spreadsheets/d/18fCsH8VofZVDqG4Z4gobX9kU56XmkEz9XeuFmyJWmxs/edit#gid=0",
